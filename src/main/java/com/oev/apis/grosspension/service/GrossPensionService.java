@@ -11,6 +11,7 @@ public class GrossPensionService {
         return GrossPensionResponse.builder()
                 .age(grossPensionRequest.getAge())
                 .grossAnnualSalary(grossPensionRequest.getGrossAnnualSalary())
+                .startOfEmployment(grossPensionRequest.getStartOfEmployment())
                 .grossPension(null)
                 .build();
     }
