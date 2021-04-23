@@ -36,7 +36,6 @@ spec:
       containers:
         - name: ${APPLICATION_NAME}
           image: naokiii/${APPLICATION_NAME}:latest
-          args: ["--spring.profiles.active=json-logging"]
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
