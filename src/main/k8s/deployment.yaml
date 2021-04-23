@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ${APPLICATION_NAME}
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: ${APPLICATION_NAME}
   ports:
