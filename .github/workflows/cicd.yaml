@@ -71,7 +71,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: naokiii/gross-pension-service:latest
+          tags: naokiii/gross-pension-calculator-service:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   kubernetes:
