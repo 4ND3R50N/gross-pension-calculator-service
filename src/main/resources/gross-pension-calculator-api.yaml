@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: Gross Pension Calculator Service
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8080/v1
 paths:
   /calculate:
     post:
