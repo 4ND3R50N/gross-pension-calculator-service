@@ -80,8 +80,6 @@ jobs:
     name: rollout on kubernetes
     steps:
       - uses: actions/checkout@v1
-      - name: debug
-        run: ls -la
       - name: insert variables to k8s files
         uses: danielr1996/envsubst-action@1.1.0
         env:
