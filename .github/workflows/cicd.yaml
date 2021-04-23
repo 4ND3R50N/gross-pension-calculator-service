@@ -79,6 +79,7 @@ jobs:
     needs: [ deploy ]
     name: rollout on kubernetes
     steps:
+      - uses: actions/checkout@v1
       - name: debug
         run: ls -la
       - name: insert variables to k8s files
