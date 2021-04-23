@@ -22,7 +22,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      io.k8s.api.apps.v1.DeploymentSpec: ${APPLICATION_NAME}
+      app: ${APPLICATION_NAME}
   strategy:
     type: "RollingUpdate"
     rollingUpdate:
