@@ -41,8 +41,9 @@ jobs:
           java-version: 11
       - name: Build and test project
         run: mvn -f pom.xml clean verify
-      - name: Upload Maven build artifact
+      - name: check folders
         run: ls -la
+      - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
           name: artifact
