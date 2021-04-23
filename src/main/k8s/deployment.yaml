@@ -48,7 +48,7 @@ spec:
               memory: "512Mi"
           readinessProbe:
             httpGet:
-              path: /management/health/readiness
+              path: "/actuator/health"
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 30
@@ -57,7 +57,7 @@ spec:
             failureThreshold: 20
           livenessProbe:
             httpGet:
-              path: /management/health/liveness
+              path: "/actuator/health"
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 50
@@ -65,3 +65,18 @@ spec:
             successThreshold: 1
       securityContext:
         runAsUser: 1001
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ${APPLICATION_NAME}
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /api/v1
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/v1
+            backend:
+              serviceName: $APPLICATION_NAME
+              servicePort: 8080

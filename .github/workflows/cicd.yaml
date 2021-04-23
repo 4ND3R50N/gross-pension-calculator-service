@@ -12,16 +12,13 @@ on:
 jobs:
   compile:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ 11 ]
-    name: java ${{ matrix.java }} compile
+    name: java 11 compile
     steps:
       - uses: actions/checkout@master
       - name: setup java
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ matrix.java }}
+          java-version: 11
       - run: mvn -f pom.xml clean compile
   build:
     runs-on: ubuntu-latest
