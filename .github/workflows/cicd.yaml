@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-    name: Java ${{ matrix.java }} compile
+    name: java ${{ matrix.java }} compile
     steps:
       - uses: actions/checkout@master
       - name: setup java
@@ -77,8 +77,10 @@ jobs:
   kubernetes:
     runs-on: ubuntu-latest
     needs: [ deploy ]
-    name: Rollout on kubernetes
+    name: rollout on kubernetes
     steps:
+      - name: debug
+        run: ls -la
       - name: insert variables to k8s files
         uses: danielr1996/envsubst-action@1.1.0
         env:

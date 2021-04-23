@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: ${APPLICATION_NAME}
-          image: vgiotdevacr.azurecr.io/naokiii/${APPLICATION_NAME}:latest
+          image: naokiii/${APPLICATION_NAME}:latest
           args: ["--spring.profiles.active=json-logging"]
           imagePullPolicy: Always
           ports:
