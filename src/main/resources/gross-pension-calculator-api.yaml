@@ -1,0 +1,64 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Gross Pension Calculator Service
+servers:
+  - url: http://localhost:8080
+paths:
+  /calculate:
+    post:
+      summary: This endpoint is using "age", "start of employment" and "gross annual salary" to calculate the "gross pension"
+      operationId: gross-pension-calculation
+      tags:
+        - gross-pension-calculation
+        
+      requestBody:
+        description: It is required to send the following request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrossPensionRequest'
+      responses:
+        '200':
+          description: The payload contains the given request values including the calculated gross pension result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GrossPensionResponse"
+components:
+  schemas:
+    GrossPensionResponse:
+      required:
+        - grossPension
+        - age
+        - startOfEmployment
+        - grossAnnualSalary
+      properties:
+        grossPension:
+          type: number
+        age:
+          type: integer        
+        startOfEmployment:
+          type: string
+          format: date
+          example: "2021-01-01"   
+        grossAnnualSalary:
+          type: number
+    GrossPensionRequest:
+      required:
+        - age
+        - startOfEmployment
+        - grossAnnualSalary
+      properties:
+        age:
+          type: integer
+          example: 27 
+        startOfEmployment:
+          type: string
+          format: date
+          example: "2021-01-01"
+        grossAnnualSalary:
+          type: number
+        
+    

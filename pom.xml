@@ -15,6 +15,8 @@
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
+        <groovy.version>3.0.7</groovy.version>
+        <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,10 +34,133 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy -->
+        <dependency> <!-- use a specific Groovy version rather than the one specified by spock-core -->
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.10.10</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-bom</artifactId>
+                <version>2.0-M4-groovy-3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.12.0</version>
+                <executions>
+                    <execution>
+                        <!-- Without joint compilation - no dependencies between Java and Groovy (inheritance)-->
+                        <goals>
+                            <goal>compileTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <testSources>
+                        <testSource>
+                            <directory>${project.basedir}/src/test/groovy</directory>
+                            <includes>
+                                <include>**/*.groovy</include>
+                                <include>**/*.java</include>
+                            </includes>
+                        </testSource>
+                    </testSources>
+                </configuration>
+                <dependencies>
+
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-plugin.version}</version>
+                <configuration>
+                    <testSourceDirectory>src/test/groovy</testSourceDirectory>
+                    <!--<testSourceDirectory>src/test/java</testSourceDirectory>-->
+                    <includes>
+                        <include>**/*.java</include>
+                        <!-- Yes, .java extension -->
+                        <include>**/*Test.java</include>
+                        <!-- Just in case having "normal" JUnit tests -->
+                    </includes>
+                    <systemPropertyVariables>
+                        <maven.home>${maven.home}</maven.home>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <!-- RELEASE_VERSION -->
+                <version>5.1.0</version>
+                <!-- /RELEASE_VERSION -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/gross-pension-calculator-api.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <apiPackage>com.oev.apis.grosspension.api</apiPackage>
+                            <modelPackage>com.oev.apis.grosspension.model</modelPackage>
+                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+                            <configOptions>
+                                <delegatePattern>true</delegatePattern>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
