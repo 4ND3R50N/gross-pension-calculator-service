@@ -42,6 +42,7 @@ jobs:
       - name: Build and test project
         run: mvn -f pom.xml clean verify
       - name: Upload Maven build artifact
+        run: ls -la
         uses: actions/upload-artifact@v1
         with:
           name: artifact
