@@ -8,7 +8,7 @@ import spock.lang.Subject
 
 import java.time.LocalDate
 
-class GrossPensionControllerImplTest extends Specification {
+class GrossPensionControllerImplSpec extends Specification {
 
     GrossPensionService grossPensionService = Mock()
 

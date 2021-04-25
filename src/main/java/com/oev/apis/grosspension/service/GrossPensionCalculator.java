@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Component
 // todo: add unit tests
 public class GrossPensionCalculator {
-    public BigDecimal calculate(@NonNull int age, @NonNull BigDecimal grossAnnualSalary, @NonNull LocalDate startOfEmployment) {
+    public BigDecimal calculate(int age, @NonNull BigDecimal grossAnnualSalary, @NonNull LocalDate startOfEmployment) {
         // todo: implement validation
         // todo: implement calculation
         return BigDecimal.ZERO;
