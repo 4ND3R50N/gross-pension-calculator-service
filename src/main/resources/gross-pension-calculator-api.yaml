@@ -31,9 +31,6 @@ components:
     GrossPensionResponse:
       required:
         - grossPension
-        - age
-        - startOfEmployment
-        - grossAnnualSalary
       properties:
         grossPension:
           type: number

@@ -15,7 +15,7 @@ class GrossPensionCalculatorSpec extends Specification {
     @Unroll
     def "it should calculate #description"() {
 
-        expect:
+        expect: "correct calculation of grossPension"
         expectedResult == grossPensionCalculator.calculate(age, grossAnnualSalary, startOfEmployment)
 
         where:
@@ -26,16 +26,18 @@ class GrossPensionCalculatorSpec extends Specification {
 
     @Unroll
     def "it should throw exception if #description"() {
+
         given: "value that indicated an exception was thrown"
         Exception exceptionToValidate = null
-        when:
+
+        when: "calculation method throws an error"
         try {
             grossPensionCalculator.calculate(age, grossAnnualSalary, startOfEmployment)
         } catch (Exception e) {
             exceptionToValidate = e
         }
 
-        then:
+        then: "the right instance of exception has to be thrown"
         exceptionToValidate.getClass().isInstance(expectedException)
 
         where:
