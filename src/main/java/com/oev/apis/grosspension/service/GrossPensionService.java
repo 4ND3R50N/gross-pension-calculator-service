@@ -4,6 +4,7 @@ import com.oev.apis.grosspension.model.GrossPensionRequest;
 import com.oev.apis.grosspension.model.GrossPensionResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ public class GrossPensionService {
 
     private final GrossPensionCalculator grossPensionCalculator;
     private final GrossPensionMapper grossPensionMapper;
+    private final Logger logger;
 
     public GrossPensionResponse calculateGrossPension(@NonNull GrossPensionRequest grossPensionRequest) {
 
@@ -21,6 +23,10 @@ public class GrossPensionService {
                 grossPensionRequest.getGrossAnnualSalary(),
                 grossPensionRequest.getStartOfEmployment());
 
-        return grossPensionMapper.map(grossPensionRequest, grossPension);
+        GrossPensionResponse response = grossPensionMapper.map(grossPensionRequest, grossPension);
+        logger.debug("Successfully processed request: {}. Calculated value: {}",
+                grossPensionRequest,
+                response.getGrossPension());
+        return response;
     }
 }

@@ -2,6 +2,7 @@ package com.oev.apis.grosspension.service
 
 import com.oev.apis.grosspension.model.GrossPensionRequest
 import com.oev.apis.grosspension.model.GrossPensionResponse
+import org.slf4j.Logger
 import spock.lang.Specification
 
 import java.time.LocalDate
@@ -10,8 +11,9 @@ class GrossPensionServiceSpec extends Specification {
 
     GrossPensionMapper grossPensionMapper = Mock()
     GrossPensionCalculator grossPensionCalculator = Mock()
+    Logger logger = Mock()
 
-    GrossPensionService grossPensionService = new GrossPensionService(grossPensionCalculator, grossPensionMapper)
+    GrossPensionService grossPensionService = new GrossPensionService(grossPensionCalculator, grossPensionMapper, logger)
 
     def "it should check nullpointer exception"() {
 
