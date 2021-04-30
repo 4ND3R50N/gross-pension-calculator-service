@@ -31,9 +31,9 @@ class GrossPensionMapperSpec extends Specification {
 
         where:
         description                            | request           | grossPension || expectedResult
-        "fail if request is null"                 | null              | 30000.0      || false
-        "fail if grossPension is null"            | getValidRequest() | null         || false
-        "map successful if payload is correct" | getValidRequest() | 30000.0         || true
+        "fail if request is null"              | null              | 30000.0      || false
+        "fail if grossPension is null"         | getValidRequest() | null         || false
+        "map successful if payload is correct" | getValidRequest() | 30000.0      || true
 
     }
 

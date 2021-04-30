@@ -1,6 +1,7 @@
 package com.oev.apis.grosspension.service;
 
 import com.oev.apis.grosspension.error.InvalidAgeException;
+import com.oev.apis.grosspension.service.model.RetirementYears;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,8 @@ public class GrossPensionCalculator {
         }
 
         int birthYear = LocalDate.now().getYear() - age;
-        int retirementYears = RetirementYears.valueOf(birthYear).value;
-        BigDecimal yearsToWorkUnitRetirement = getYearsToWorkUnitRetirement(birthYear, retirementYears, startOfEmployment);
+        int retirementYears = RetirementYears.fromValue(birthYear).value;
+        BigDecimal yearsToWorkUnitRetirement = getYearsToWorkUntilRetirement(birthYear, retirementYears, startOfEmployment);
         return grossPensionCalculation(yearsToWorkUnitRetirement, grossAnnualSalary);
     }
 
@@ -31,7 +32,7 @@ public class GrossPensionCalculator {
                 .multiply(yearsToWorkUntilRetirement);
     }
 
-    private BigDecimal getYearsToWorkUnitRetirement(int birthYear, int retirementYears, LocalDate startOfEmployment) {
+    private BigDecimal getYearsToWorkUntilRetirement(int birthYear, int retirementYears, LocalDate startOfEmployment) {
         int yearsUntilEmployment = startOfEmployment.getYear() - birthYear;
         return BigDecimal.valueOf(retirementYears - yearsUntilEmployment);
     }

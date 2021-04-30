@@ -1,4 +1,4 @@
-package com.oev.apis.grosspension.service;
+package com.oev.apis.grosspension.service.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
@@ -17,7 +17,7 @@ public enum RetirementYears {
         this.value = value;
     }
 
-    public static RetirementYears valueOf(int year) {
+    public static RetirementYears fromValue(int year) {
         return year >= RETIREMENT_BORDER ? RetirementYears.YOUNGER_THAN_1958 : RetirementYears.OLDER_THAN_1958;
     }
 }
