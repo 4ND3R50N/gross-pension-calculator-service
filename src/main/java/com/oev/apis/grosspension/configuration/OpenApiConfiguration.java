@@ -14,8 +14,8 @@ public class OpenApiConfiguration {
         return new OpenAPI()
             .components(new Components())
             .info(new Info()
-                .title("EMF Service API")
-                .description("EMF Service API with OpenAPI 3.")
+                .title("Gross Pension Calculator")
+                .description("Calculate your gross pension!")
                 .version("v1")
             );
     }
