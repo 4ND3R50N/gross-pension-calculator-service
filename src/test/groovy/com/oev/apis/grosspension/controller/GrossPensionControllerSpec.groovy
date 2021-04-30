@@ -1,19 +1,20 @@
 package com.oev.apis.grosspension.controller
 
-import com.oev.apis.grosspension.model.GrossPensionRequest
-import com.oev.apis.grosspension.model.GrossPensionResponse
+import com.oev.apis.grosspension.controller.model.GrossPensionRequest
+import com.oev.apis.grosspension.controller.model.GrossPensionResponse
+import com.oev.apis.grosspension.controller.model.ImmutableGrossPensionRequest
 import com.oev.apis.grosspension.service.GrossPensionService
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.time.LocalDate
 
-class GrossPensionControllerImplSpec extends Specification {
+class GrossPensionControllerSpec extends Specification {
 
     GrossPensionService grossPensionService = Mock()
 
     @Subject
-    GrossPensionControllerImpl grossPensionController = new GrossPensionControllerImpl(grossPensionService)
+    GrossPensionController grossPensionController = new GrossPensionController(grossPensionService)
 
     def "it should throw exception if controller parameter is null"() {
 
@@ -27,7 +28,7 @@ class GrossPensionControllerImplSpec extends Specification {
     def "it should use the service"() {
 
         given: "valid payload"
-        GrossPensionRequest grossPensionRequest = GrossPensionRequest.builder()
+        GrossPensionRequest grossPensionRequest = ImmutableGrossPensionRequest.builder()
                 .age(18)
                 .grossAnnualSalary(30000.0)
                 .startOfEmployment(LocalDate.now())

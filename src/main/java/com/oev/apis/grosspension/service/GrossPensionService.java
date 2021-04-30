@@ -1,7 +1,7 @@
 package com.oev.apis.grosspension.service;
 
-import com.oev.apis.grosspension.model.GrossPensionRequest;
-import com.oev.apis.grosspension.model.GrossPensionResponse;
+import com.oev.apis.grosspension.controller.model.GrossPensionRequest;
+import com.oev.apis.grosspension.controller.model.GrossPensionResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
