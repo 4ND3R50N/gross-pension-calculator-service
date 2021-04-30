@@ -26,6 +26,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GrossPensionResponse"
+        '400':
+          description: The payload contains the given request values including the calculated gross pension result
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/GrossPensionResponse"
 components:
   schemas:
     GrossPensionResponse:
