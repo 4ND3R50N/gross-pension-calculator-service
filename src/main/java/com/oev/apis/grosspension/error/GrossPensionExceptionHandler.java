@@ -19,9 +19,10 @@ public class GrossPensionExceptionHandler implements AdviceTrait {
     public ResponseEntity<Problem> handleNoEmfDataException(InvalidAgeException exception) {
         logger.warn("Request failed due InvalidAgeException: " + exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body(Problem.builder()
-                .withDetail(exception.getMessage())
-                .build());
+                .body(Problem.builder()
+                        .withTitle("The data is incorrect!")
+                        .withDetail(exception.getMessage())
+                        .build());
     }
 
     @ExceptionHandler
@@ -29,6 +30,7 @@ public class GrossPensionExceptionHandler implements AdviceTrait {
         logger.warn("Request failed due NullPointerException: " + exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Problem.builder()
+                        .withTitle("Required fields are not set!")
                         .withDetail(exception.getMessage())
                         .build());
     }
