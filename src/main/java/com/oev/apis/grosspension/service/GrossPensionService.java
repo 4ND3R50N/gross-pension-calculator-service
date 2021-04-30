@@ -2,17 +2,31 @@ package com.oev.apis.grosspension.service;
 
 import com.oev.apis.grosspension.model.GrossPensionRequest;
 import com.oev.apis.grosspension.model.GrossPensionResponse;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
+@RequiredArgsConstructor
 public class GrossPensionService {
 
-    public GrossPensionResponse calculateGrossPension(GrossPensionRequest grossPensionRequest) {
-        return GrossPensionResponse.builder()
-                .age(grossPensionRequest.getAge())
-                .grossAnnualSalary(grossPensionRequest.getGrossAnnualSalary())
-                .startOfEmployment(grossPensionRequest.getStartOfEmployment())
-                .grossPension(null)
-                .build();
+    private final GrossPensionCalculator grossPensionCalculator;
+    private final GrossPensionMapper grossPensionMapper;
+    private final Logger logger;
+
+    public GrossPensionResponse calculateGrossPension(@NonNull GrossPensionRequest grossPensionRequest) {
+
+        BigDecimal grossPension = grossPensionCalculator.calculate(grossPensionRequest.getAge(),
+                grossPensionRequest.getGrossAnnualSalary(),
+                grossPensionRequest.getStartOfEmployment());
+
+        GrossPensionResponse response = grossPensionMapper.map(grossPensionRequest, grossPension);
+        logger.debug("Successfully processed request: {}. Calculated value: {}",
+                grossPensionRequest,
+                response.getGrossPension());
+        return response;
     }
 }
