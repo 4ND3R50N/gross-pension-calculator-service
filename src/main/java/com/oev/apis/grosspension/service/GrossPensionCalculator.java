@@ -22,8 +22,8 @@ public class GrossPensionCalculator {
 
         int birthYear = LocalDate.now().getYear() - age;
         int retirementYears = RetirementYears.fromValue(birthYear).value;
-        BigDecimal yearsToWorkUnitRetirement = getYearsToWorkUntilRetirement(birthYear, retirementYears, startOfEmployment);
-        return grossPensionCalculation(yearsToWorkUnitRetirement, grossAnnualSalary);
+        BigDecimal yearsToWorkUntilRetirement = getYearsToWorkUntilRetirement(birthYear, retirementYears, startOfEmployment);
+        return grossPensionCalculation(yearsToWorkUntilRetirement, grossAnnualSalary);
     }
 
     private BigDecimal grossPensionCalculation(BigDecimal yearsToWorkUntilRetirement, BigDecimal grossAnnualSalary) {
