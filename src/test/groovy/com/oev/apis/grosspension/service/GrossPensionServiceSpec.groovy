@@ -1,7 +1,8 @@
 package com.oev.apis.grosspension.service
 
-import com.oev.apis.grosspension.model.GrossPensionRequest
-import com.oev.apis.grosspension.model.GrossPensionResponse
+import com.oev.apis.grosspension.controller.model.GrossPensionRequest
+import com.oev.apis.grosspension.controller.model.GrossPensionResponse
+import com.oev.apis.grosspension.controller.model.ImmutableGrossPensionRequest
 import org.slf4j.Logger
 import spock.lang.Specification
 
@@ -27,7 +28,7 @@ class GrossPensionServiceSpec extends Specification {
 
     def "it should run service"() {
         given: "gross pension payload"
-        GrossPensionRequest grossPensionRequest = GrossPensionRequest.builder()
+        GrossPensionRequest grossPensionRequest = ImmutableGrossPensionRequest.builder()
                 .age(18)
                 .grossAnnualSalary(30000.0)
                 .startOfEmployment(LocalDate.now())

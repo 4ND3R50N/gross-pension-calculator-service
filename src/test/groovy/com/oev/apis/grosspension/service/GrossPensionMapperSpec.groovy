@@ -1,6 +1,7 @@
 package com.oev.apis.grosspension.service
 
-import com.oev.apis.grosspension.model.GrossPensionRequest
+import com.oev.apis.grosspension.controller.model.GrossPensionRequest
+import com.oev.apis.grosspension.controller.model.ImmutableGrossPensionRequest
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -38,7 +39,7 @@ class GrossPensionMapperSpec extends Specification {
     }
 
     private static GrossPensionRequest getValidRequest() {
-        return GrossPensionRequest.builder()
+        return ImmutableGrossPensionRequest.builder()
                 .age(18)
                 .grossAnnualSalary(30000.0)
                 .startOfEmployment(LocalDate.now())
